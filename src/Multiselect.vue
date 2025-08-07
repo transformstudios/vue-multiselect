@@ -10,6 +10,8 @@
     @keyup.esc="deactivate()"
     class="multiselect"
     role="combobox"
+    :aria-label="name"
+    :id="'combobox-' + id"
     :aria-expanded="isOpen ? 'true' : 'false'"
     :aria-controls="'listbox-'+id"
     :aria-activedescendant="isOpen && pointer !== null ? id + '-' + pointer : null">
@@ -165,8 +167,12 @@ export default {
   name: 'vue-multiselect',
   mixins: [multiselectMixin, pointerMixin],
   props: {
+    id: {
+      type: String,
+      default: ''
+    },
     /**
-     * name attribute to match optional label element
+     * id attribute to match optional label element
      * @default ''
      * @type {String}
      */
