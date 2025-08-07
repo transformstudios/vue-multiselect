@@ -10,8 +10,10 @@
     @keyup.esc="deactivate()"
     class="multiselect"
     role="combobox"
-    :aria-owns="'listbox-'+id">
-      <slot name="caret" :toggle="toggle">
+    :aria-expanded="isOpen"
+    :aria-owns="'listbox-'+id"
+    :aria-activedescendant="isOpen && pointer !== null ? id + '-' + pointer : null">
+  <slot name="caret" :toggle="toggle">
         <div @mousedown.prevent.stop="toggle()" class="multiselect__select"></div>
       </slot>
       <slot name="clear" :search="search"></slot>
@@ -57,6 +59,7 @@
           :value="search"
           :disabled="disabled"
           :tabindex="tabindex"
+          :aria-label="name + '-searchbox'"
           @input="updateSearch($event.target.value)"
           @focus.prevent="activate()"
           @blur.prevent="deactivate()"
